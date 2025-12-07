@@ -1,5 +1,6 @@
 import { Order } from "./Order";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import type { Relation } from "typeorm";
 
 @Entity()
 export class OrderItem {
@@ -13,6 +14,6 @@ export class OrderItem {
   price: number;
   @Column()
   quantity: number;
-  @ManyToOne(() => Order)
-  order: typeof Order;
+  @ManyToOne(() => Order, (order) => order.items)
+  order: Relation<Order>;
 }

@@ -5,6 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import type { Relation } from "typeorm";
 import { OrderItem } from "./OrderItem";
 
 @Entity()
@@ -18,5 +19,5 @@ export class Order {
   @Column()
   total: number;
   @OneToMany(() => OrderItem, (item) => item.order, { cascade: true })
-  items: (typeof OrderItem)[];
+  items: Relation<OrderItem[]>;
 }
