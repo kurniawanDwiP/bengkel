@@ -7,7 +7,9 @@ import { Service } from "../entities/Service";
 export const AppDataSource = new DataSource({
   type: "postgres",
   url: process.env.DATABE_URL_POSTGRES_URL,
-  ssl: true,
+  ssl: {
+    rejectUnauthorized: false,
+  },
   entities: [Order, OrderItem, Service],
   synchronize: true,
   logging: false,
