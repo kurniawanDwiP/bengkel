@@ -2,11 +2,12 @@ import "reflect-metadata";
 import { OrderService } from "@/service/OrderService";
 import { NextRequest, NextResponse } from "next/server";
 
+const orderService = new OrderService();
+
 export async function GET(
   req: NextRequest,
   context: { params: Promise<{ id: string }> },
 ) {
-  const orderService = new OrderService();
   try {
     const { id } = await context.params;
     const order = await orderService.getOrderById(id);

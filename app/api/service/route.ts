@@ -1,8 +1,9 @@
 import { ServiceService } from "@/service/ServiceService";
 import { NextResponse } from "next/server";
 
+const serviceService = new ServiceService();
+
 export async function GET() {
-  const serviceService = new ServiceService();
   try {
     const service = await serviceService.getAllServices();
     return NextResponse.json(service);

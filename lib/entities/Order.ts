@@ -18,5 +18,5 @@ export class Order {
   @Column()
   total: number;
   @OneToMany(() => OrderItem, (item) => item.order, { cascade: true })
-  items: OrderItem[];
+  items: (typeof OrderItem)[];
 }
