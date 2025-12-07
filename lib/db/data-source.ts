@@ -6,7 +6,7 @@ import { Service } from "../entities/Service";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  url: process.env.DATABE_URL_POSTGRES_URL,
+  url: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false,
   },
