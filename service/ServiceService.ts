@@ -4,6 +4,6 @@ export class ServiceService {
   constructor(private readonly serviceRepository = new ServiceRepository()) {}
 
   async getAllServices() {
-    return this.serviceRepository.findAll();
+    return await this.serviceRepository.findAll();
   }
 }
