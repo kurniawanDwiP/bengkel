@@ -5,9 +5,8 @@ import { plainToInstance } from "class-transformer";
 import { validateOrReject } from "class-validator";
 import { NextResponse } from "next/server";
 
-const orderService = new OrderService();
-
 export async function GET() {
+  const orderService = new OrderService();
   try {
     const orders = await orderService.getAllOrders();
     return NextResponse.json(orders);
@@ -22,6 +21,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const orderService = new OrderService();
   try {
     const body = await req.json();
     const dto = plainToInstance(CreateOrderDto, body);
