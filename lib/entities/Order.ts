@@ -1,0 +1,22 @@
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { OrderItem } from "./OrderItem";
+
+@Entity()
+export class Order {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
+  @Column()
+  customer_name: string;
+  @CreateDateColumn()
+  created_at: Date;
+  @Column()
+  total: number;
+  @OneToMany("OrderItem", "order", { cascade: true })
+  items: OrderItem[];
+}

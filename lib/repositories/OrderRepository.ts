@@ -1,0 +1,27 @@
+import { Repository } from "typeorm";
+import { Order } from "../entities/Order";
+import { AppDataSource } from "../db/data-source";
+
+export class OrderRepository {
+  private orderRepository: Repository<Order>;
+  constructor() {
+    this.orderRepository = AppDataSource.getRepository(Order);
+  }
+
+  async saveOrder(order: Order): Promise<Order> {
+    return await this.orderRepository.save(order);
+  }
+
+  async findById(id: string): Promise<Order> | null {
+    return await this.orderRepository.findOne({
+      where: { id },
+      relations: { items: true },
+    });
+  }
+
+  async getAll(): Promise<Order[]> {
+    return await this.orderRepository.find({
+      relations: { items: true },
+    });
+  }
+}
