@@ -1,15 +1,16 @@
 import "reflect-metadata";
 import { OrderService } from "@/service/OrderService";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const orderService = new OrderService();
 
 export async function GET(
-  req: Request,
-  { params }: { params: { id: string } },
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> },
 ) {
   try {
-    const order = await orderService.getOrderById(params.id);
+    const { id } = await context.params;
+    const order = await orderService.getOrderById(id);
     if (!order) {
       return NextResponse.json(
         { message: "Order tidak ditemukan" },
