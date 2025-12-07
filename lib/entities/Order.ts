@@ -17,6 +17,6 @@ export class Order {
   created_at: Date;
   @Column()
   total: number;
-  @OneToMany("OrderItem", "order", { cascade: true })
+  @OneToMany(() => OrderItem, (item) => item.order, { cascade: true })
   items: OrderItem[];
 }

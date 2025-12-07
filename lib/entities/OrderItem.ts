@@ -13,6 +13,6 @@ export class OrderItem {
   price: number;
   @Column()
   quantity: number;
-  @ManyToOne("Order", "items")
+  @ManyToOne(() => Order, (order) => order.items)
   order: Order;
 }
