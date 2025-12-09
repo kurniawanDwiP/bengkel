@@ -3,21 +3,21 @@ import { CreateOrderDto } from "@/lib/dto/create-order.dto";
 import { OrderService } from "@/service/OrderService";
 import { plainToInstance } from "class-transformer";
 import { validateOrReject } from "class-validator";
-import { NextResponse } from "next/server";
+import { ApiResponseBuilder } from "@/lib/utils/Response";
 
 const orderService = new OrderService();
 
 export async function GET() {
   try {
     const orders = await orderService.getAllOrders();
-    return NextResponse.json(orders);
+    return ApiResponseBuilder.ok("Orders fetched succeffully", orders);
   } catch (error) {
     console.error(error);
 
-    return NextResponse.json(
-      { error: "Gagal mengambil data" },
-      { status: 500 },
-    );
+    return new ApiResponseBuilder()
+      .setSuccess(false)
+      .setMessage("Failed to fetch orders")
+      .setStatus(500);
   }
 }
 
@@ -27,14 +27,19 @@ export async function POST(req: Request) {
     const dto = plainToInstance(CreateOrderDto, body);
     await validateOrReject(dto);
     const newOrder = await orderService.createOrder(dto);
-    return NextResponse.json(newOrder, {
-      status: 201,
-    });
+    return new ApiResponseBuilder()
+      .setSuccess(true)
+      .setMessage("Order created successfully")
+      .setData(newOrder)
+      .setStatus(201)
+      .build();
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { message: "Validasi gagal", error },
-      { status: 400 },
-    );
+    return new ApiResponseBuilder()
+      .setSuccess(false)
+      .setMessage("Failed to validate dto")
+      .setData(error)
+      .setStatus(400)
+      .build();
   }
 }

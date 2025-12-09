@@ -24,4 +24,9 @@ export class OrderRepository {
       relations: { items: true },
     });
   }
+
+  async updateOrder(order: Order, dto: Partial<Order>): Promise<Order> {
+    Object.assign(order, dto);
+    return await this.orderRepository.save(order);
+  }
 }

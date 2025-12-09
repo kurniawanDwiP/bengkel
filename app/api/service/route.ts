@@ -1,18 +1,24 @@
+import { ApiResponseBuilder } from "@/lib/utils/Response";
 import { ServiceService } from "@/service/ServiceService";
-import { NextResponse } from "next/server";
 
 const serviceService = new ServiceService();
 
 export async function GET() {
   try {
     const service = await serviceService.getAllServices();
-    return NextResponse.json(service);
+    return new ApiResponseBuilder()
+      .setSuccess(true)
+      .setMessage("Service fetched successfully")
+      .setData(service)
+      .setStatus(200)
+      .build();
   } catch (error) {
     console.error(error);
-
-    return NextResponse.json(
-      { error: "Gagal mengambil data" },
-      { status: 500 },
-    );
+    return new ApiResponseBuilder()
+      .setSuccess(false)
+      .setMessage("Failed fetch service")
+      .setData(error)
+      .setStatus(500)
+      .build();
   }
 }

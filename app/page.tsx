@@ -1,5 +1,7 @@
 "use client";
 
+import { Service } from "@/lib/entities/Service";
+import { TApiResponse } from "@/lib/utils/Response";
 import { useEffect, useState } from "react";
 
 export default function HomePage() {
@@ -12,8 +14,9 @@ export default function HomePage() {
   useEffect(() => {
     async function fetchServices() {
       const res = await fetch("/api/service");
-      const data = await res.json();
-      setServices(data);
+      const data: TApiResponse<Service[]> = await res.json();
+      const serviceList = data.data;
+      setServices(serviceList);
     }
     fetchServices();
   }, []);

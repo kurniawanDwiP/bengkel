@@ -44,4 +44,17 @@ export class OrderService {
   async getOrderById(id: string): Promise<Order> | null {
     return await this.orderRepository.findById(id);
   }
+
+  async updateOrder(id: string, dto: Partial<Order>): Promise<Order> {
+    const order = await this.findOneOrFail(id);
+    return await this.orderRepository.updateOrder(order, dto);
+  }
+
+  private async findOneOrFail(id: string) {
+    const order = await this.orderRepository.findById(id);
+    if (!order) {
+      throw new Error("Order id not found");
+    }
+    return order;
+  }
 }
