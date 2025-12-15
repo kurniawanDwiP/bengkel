@@ -14,10 +14,3 @@ export const AppDataSource = new DataSource({
   synchronize: true,
   logging: false,
 });
-
-try {
-  await AppDataSource.initialize();
-  console.log("Data source has been initialized");
-} catch (error) {
-  console.error(error);
-}

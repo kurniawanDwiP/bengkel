@@ -1,9 +1,11 @@
+import { createServiceService } from "@/lib/container";
+import { initDataSource } from "@/lib/db/init-db";
 import { ApiResponseBuilder } from "@/lib/utils/Response";
-import { ServiceService } from "@/service/ServiceService";
 
-const serviceService = new ServiceService();
+const serviceService = createServiceService();
 
 export async function GET() {
+  await initDataSource();
   try {
     const service = await serviceService.getAllServices();
     return new ApiResponseBuilder()

@@ -3,10 +3,7 @@ import { Order } from "../entities/Order";
 import { AppDataSource } from "../db/data-source";
 
 export class OrderRepository {
-  private orderRepository: Repository<Order>;
-  constructor() {
-    this.orderRepository = AppDataSource.getRepository(Order);
-  }
+  constructor(private orderRepository: Repository<Order>) {}
 
   async saveOrder(order: Order): Promise<Order> {
     return await this.orderRepository.save(order);

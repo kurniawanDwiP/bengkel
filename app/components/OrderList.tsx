@@ -2,6 +2,7 @@
 import { Order } from "@/lib/entities/Order";
 import { OrderItem } from "@/lib/entities/OrderItem";
 import { TApiResponse } from "@/lib/utils/Response";
+import { ArrowLeft, Home } from "lucide-react";
 import Link from "next/link";
 
 // Type untuk order dengan items
@@ -21,14 +22,13 @@ export default async function OrderList() {
   const orders = data.data || [];
 
   return (
-    <div className="flex flex-col border rounded-lg p-4 gap-3 w-full bg-white shadow-sm">
+    <div className="flex flex-col rounded-lg p-4 gap-3 w-full bg-white shadow-sm m-3">
       <div className="flex justify-between items-center mb-2">
         <h1 className="text-2xl font-bold text-gray-800">Riwayat Pesanan</h1>
         <div className="text-sm text-gray-500">
           Total: {orders.length} pesanan
         </div>
       </div>
-
       {orders.length === 0 ? (
         <div className="text-center py-12 text-gray-500 border rounded-lg">
           <div className="text-4xl mb-2">📋</div>
@@ -116,6 +116,13 @@ export default async function OrderList() {
           ))}
         </div>
       )}
+      <Link
+        href="/"
+        className="px-6 py-3 border border-gray-300 rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition-colors font-medium flex items-center gap-2"
+      >
+        <Home className="w-4 h-4" />
+        Kembali ke Menu Utama
+      </Link>{" "}
     </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { Service } from "@/lib/entities/Service";
 import { Trash2, Plus, Minus } from "lucide-react";
 
 interface CartItemProps {
@@ -9,7 +10,7 @@ interface CartItemProps {
     price: number;
     qty: number;
   };
-  onAdd: (service) => void;
+  onAdd: (service: Partial<Service>) => void;
   onDecrease: (serviceId: string) => void;
   onRemove: (serviceId: string) => void;
 }

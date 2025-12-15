@@ -1,14 +1,16 @@
 import "reflect-metadata";
-import { OrderService } from "@/service/OrderService";
 import { NextRequest } from "next/server";
 import { ApiResponseBuilder } from "@/lib/utils/Response";
+import { initDataSource } from "@/lib/db/init-db";
+import { createOrderService } from "@/lib/container";
 
-const orderService = new OrderService();
+const orderService = createOrderService();
 
 export async function GET(
   req: NextRequest,
   ctx: { params: Promise<{ id: string }> },
 ) {
+  await initDataSource();
   try {
     const { id } = await ctx.params;
     const order = await orderService.getOrderById(id);
@@ -41,6 +43,7 @@ export async function PUT(
   req: NextRequest,
   ctx: { params: Promise<{ id: string }> },
 ) {
+  await initDataSource();
   try {
     const body = await req.json();
     const { id } = await ctx.params;
