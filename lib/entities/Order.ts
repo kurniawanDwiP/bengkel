@@ -14,6 +14,8 @@ export class Order {
   id: string;
   @Column()
   customer_name: string;
+  @Column({ nullable: true })
+  contact: string;
   @CreateDateColumn()
   created_at: Date;
   @Column()

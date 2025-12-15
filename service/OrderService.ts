@@ -13,6 +13,7 @@ export class OrderService {
   async createOrder(dto: CreateOrderDto): Promise<Order> {
     const order = new Order();
     order.customer_name = dto.customer_name;
+    order.contact = dto.contact;
     order.items = [];
 
     let total = 0;
