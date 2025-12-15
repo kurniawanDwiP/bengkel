@@ -6,8 +6,8 @@ import { ServiceRepository } from "@/lib/repositories/ServiceRepository";
 
 export class OrderService {
   constructor(
-    private readonly orderRepository = new OrderRepository(),
-    private readonly serviceRepository = new ServiceRepository(),
+    private readonly orderRepository: OrderRepository,
+    private readonly serviceRepository: ServiceRepository,
   ) {}
 
   async createOrder(dto: CreateOrderDto): Promise<Order> {
