@@ -1,6 +1,5 @@
 import { Repository } from "typeorm";
 import { Order } from "../entities/Order";
-import { AppDataSource } from "../db/data-source";
 
 export class OrderRepository {
   constructor(private orderRepository: Repository<Order>) {}
@@ -9,7 +8,7 @@ export class OrderRepository {
     return await this.orderRepository.save(order);
   }
 
-  async findById(id: string): Promise<Order> | null {
+  async findById(id: string): Promise<Order | null> {
     return await this.orderRepository.findOne({
       where: { id },
       relations: { items: true },
@@ -18,6 +17,7 @@ export class OrderRepository {
 
   async getAll(): Promise<Order[]> {
     return await this.orderRepository.find({
+      order: { created_at: "DESC" },
       relations: { items: true },
     });
   }

@@ -42,7 +42,7 @@ export class OrderService {
     return await this.orderRepository.getAll();
   }
 
-  async getOrderById(id: string): Promise<Order> | null {
+  async getOrderById(id: string): Promise<Order | null> {
     return await this.orderRepository.findById(id);
   }
 

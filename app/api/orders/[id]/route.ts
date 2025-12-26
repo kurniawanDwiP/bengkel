@@ -5,12 +5,12 @@ import { initDataSource } from "@/lib/db/init-db";
 import { createOrderService } from "@/lib/container";
 
 const orderService = createOrderService();
+await initDataSource();
 
 export async function GET(
   req: NextRequest,
   ctx: { params: Promise<{ id: string }> },
 ) {
-  await initDataSource();
   try {
     const { id } = await ctx.params;
     const order = await orderService.getOrderById(id);
@@ -43,7 +43,6 @@ export async function PUT(
   req: NextRequest,
   ctx: { params: Promise<{ id: string }> },
 ) {
-  await initDataSource();
   try {
     const body = await req.json();
     const { id } = await ctx.params;

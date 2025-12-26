@@ -7,9 +7,9 @@ import { initDataSource } from "@/lib/db/init-db";
 import { createOrderService } from "@/lib/container";
 
 const orderService = createOrderService();
+await initDataSource();
 
 export async function GET() {
-  await initDataSource();
   try {
     const orders = await orderService.getAllOrders();
     return ApiResponseBuilder.ok("Orders fetched succeffully", orders);
@@ -25,7 +25,6 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  await initDataSource();
   try {
     const body = await req.json();
     const dto = plainToInstance(CreateOrderDto, body);
