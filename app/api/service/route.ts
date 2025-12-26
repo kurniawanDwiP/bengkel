@@ -5,8 +5,8 @@ import { ApiResponseBuilder } from "@/lib/utils/Response";
 const serviceService = createServiceService();
 
 export async function GET() {
-  await initDataSource();
   try {
+    await initDataSource();
     const service = await serviceService.getAllServices();
     return new ApiResponseBuilder()
       .setSuccess(true)

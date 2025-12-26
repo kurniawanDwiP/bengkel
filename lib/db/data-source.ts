@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { Order } from "../entities/Order";
 import { OrderItem } from "../entities/OrderItem";
@@ -11,6 +10,6 @@ export const AppDataSource = new DataSource({
     rejectUnauthorized: false,
   },
   entities: [Order, OrderItem, Service],
-  synchronize: true,
+  synchronize: false,
   logging: false,
 });

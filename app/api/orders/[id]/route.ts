@@ -5,13 +5,13 @@ import { initDataSource } from "@/lib/db/init-db";
 import { createOrderService } from "@/lib/container";
 
 const orderService = createOrderService();
-await initDataSource();
 
 export async function GET(
   req: NextRequest,
   ctx: { params: Promise<{ id: string }> },
 ) {
   try {
+    await initDataSource();
     const { id } = await ctx.params;
     const order = await orderService.getOrderById(id);
     if (!order) {
@@ -44,6 +44,7 @@ export async function PUT(
   ctx: { params: Promise<{ id: string }> },
 ) {
   try {
+    await initDataSource();
     const body = await req.json();
     const { id } = await ctx.params;
     const updatedOrder = await orderService.updateOrder(id, body);

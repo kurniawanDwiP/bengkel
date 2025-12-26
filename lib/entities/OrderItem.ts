@@ -2,7 +2,7 @@ import { Order } from "./Order";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import type { Relation } from "typeorm";
 
-@Entity()
+@Entity("order_item")
 export class OrderItem {
   @PrimaryGeneratedColumn("uuid")
   id: string;

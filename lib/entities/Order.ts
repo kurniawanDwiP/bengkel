@@ -8,7 +8,7 @@ import {
 import type { Relation } from "typeorm";
 import { OrderItem } from "./OrderItem";
 
-@Entity()
+@Entity("order")
 export class Order {
   @PrimaryGeneratedColumn("uuid")
   id: string;
