@@ -10,6 +10,7 @@ export const AppDataSource = new DataSource({
     rejectUnauthorized: false,
   },
   entities: [Order, OrderItem, Service],
+  migrations: [__dirname + "/migrations/*.ts"],
   synchronize: false,
   logging: false,
 });

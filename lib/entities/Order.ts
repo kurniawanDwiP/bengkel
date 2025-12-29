@@ -4,6 +4,7 @@ import {
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import type { Relation } from "typeorm";
 import { OrderItem } from "./OrderItem";
@@ -18,6 +19,8 @@ export class Order {
   contact: string;
   @CreateDateColumn()
   created_at: Date;
+  @UpdateDateColumn()
+  updated_at: Date;
   @Column()
   total: number;
   @OneToMany(() => OrderItem, (item) => item.order, { cascade: true })
