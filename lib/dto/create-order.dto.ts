@@ -6,7 +6,7 @@ export class CreateOrderDto {
   @IsString()
   customer_name: string;
   @IsString()
-  contact: string;
+  contact?: string;
   @ArrayNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => CreateOrderItemDto)
