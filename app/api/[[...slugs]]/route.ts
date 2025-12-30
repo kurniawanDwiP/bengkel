@@ -22,13 +22,23 @@ const app = new Elysia({ prefix: "/api" })
     }),
   )
   .get("/test", async () => {
-    await initDataSource();
-    const order = await orderService.getAllOrders();
-    return new ApiResponseBuilder()
-      .setSuccess(true)
-      .setMessage("Order fetched successfully")
-      .setData(order)
-      .setStatus(200).build;
+    try {
+      await initDataSource();
+      const order = await orderService.getAllOrders();
+      return new ApiResponseBuilder()
+        .setSuccess(true)
+        .setMessage("Order fetched successfully")
+        .setData(order)
+        .setStatus(200)
+        .build();
+    } catch (error) {
+      return new ApiResponseBuilder()
+        .setSuccess(false)
+        .setMessage("Internal server error")
+        .setData(error)
+        .setStatus(500)
+        .build();
+    }
   })
   .get(
     "/test/:id",
@@ -74,12 +84,43 @@ const app = new Elysia({ prefix: "/api" })
         items: t.Array(
           t.Object({
             service_id: t.String(),
-            quantity: t.Integer({ minimum: 1 }),
+            quantity: t.Number({ minimum: 1 }),
           }),
         ),
       }),
     },
+  )
+  .put(
+    "test/:id",
+    async ({ params, body }) => {
+      await initDataSource();
+      const { id } = params;
+      await orderService.updateOrder(id, body);
+      return new ApiResponseBuilder()
+        .setSuccess(true)
+        .setMessage(`Order with id:${id} updated successfully`)
+        .setData(body)
+        .setStatus(201)
+        .build();
+    },
+    {
+      body: t.Partial(
+        t.Object({
+          customer_name: t.Optional(t.String()),
+          contact: t.Optional(t.String()),
+          items: t.Optional(
+            t.Array(
+              t.Object({
+                service_id: t.Optional(t.String()),
+                quantity: t.Optional(t.String()),
+              }),
+            ),
+          ),
+        }),
+      ),
+    },
   );
 
 export const GET = app.fetch;
+export const PUT = app.fetch;
 export const POST = app.fetch;

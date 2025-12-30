@@ -5,21 +5,14 @@ import { OrderItem } from "@/lib/entities/OrderItem";
 import { TApiResponse } from "@/lib/utils/Response";
 import { OrderDetailClient } from "@/app/components/OrderPageClient";
 
-interface OrderDetailPageProps {
-  params: Promise<{
-    id: string;
-  }>;
-}
-
-// Type untuk order dengan items
 type OrderWithItems = Order & {
   items: OrderItem[];
 };
 
-export default async function OrderDetailPage({
-  params,
-}: OrderDetailPageProps) {
-  const { id } = await params;
+export default async function OrderDetailPage(
+  props: PageProps<"/orders/[id]">,
+) {
+  const { id } = await props.params;
 
   // Fetch order dengan items
   const res = await fetch(`http://localhost:3000/api/orders/${id}`, {

@@ -8,11 +8,11 @@ const orderService = createOrderService();
 
 export async function GET(
   req: NextRequest,
-  ctx: { params: Promise<{ id: string }> },
+  context: RouteContext<"/api/orders/[id]">,
 ) {
   try {
     await initDataSource();
-    const { id } = await ctx.params;
+    const { id } = await context.params;
     const order = await orderService.getOrderById(id);
     if (!order) {
       return new ApiResponseBuilder()
@@ -41,12 +41,12 @@ export async function GET(
 
 export async function PUT(
   req: NextRequest,
-  ctx: { params: Promise<{ id: string }> },
+  context: RouteContext<"/api/orders/[id]">,
 ) {
   try {
     await initDataSource();
     const body = await req.json();
-    const { id } = await ctx.params;
+    const { id } = await context.params;
     const updatedOrder = await orderService.updateOrder(id, body);
     return new ApiResponseBuilder()
       .setSuccess(true)
