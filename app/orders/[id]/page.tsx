@@ -15,9 +15,12 @@ export default async function OrderDetailPage(
   const { id } = await props.params;
 
   // Fetch order dengan items
-  const res = await fetch(`http://localhost:3000/api/orders/${id}`, {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/orders/${id}`,
+    {
+      cache: "no-store",
+    },
+  );
 
   const data: TApiResponse<OrderWithItems> = await res.json();
   const order = data.data;
